@@ -1,0 +1,17 @@
+{
+  "name": "com.a9.toxic_system",
+  "version": "1.0.1",
+  "description": "ToxicSystem",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cyhzz/com.a9.toxic_system.git"
+  },
+  "author": "A9019",
+  "keywords": [
+    "git",
+    "editor"
+  ],
+  "displayName": "A9 ToxicSystem",
+  "unity": "2020.3"
+}
