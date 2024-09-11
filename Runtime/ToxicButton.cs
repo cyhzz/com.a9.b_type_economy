@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 namespace Com.A9.ToxicSystem
 {
-    public class AdsButton : MonoBehaviour
+    public class ToxicButton : MonoBehaviour
     {
         [SerializeField]
         ToxicType id;
-        [SerializeField]
         Button button;
 
         void Start()
         {
+            button = GetComponent<Button>();
             var ad = ToxicSystem.instance.ads[id];
             ad.OnLoadingStart += () => { button.interactable = false; };
             ad.OnLoadingComplete += () => { button.interactable = true; };
