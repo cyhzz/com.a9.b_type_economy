@@ -6,9 +6,9 @@ using UnityEngine;
 using WeChatWASM;
 namespace Com.A9.ToxicSystem
 {
+#if UNITY_WEBGL
     public class WechatRewardAd : MonoBehaviour, IToxic
     {
-#if UNITY_WEBGL
         public ToxicType id;
         public string adUnitId;
         public event Action OnLoadingStart;
@@ -72,6 +72,6 @@ namespace Com.A9.ToxicSystem
                 }
             });
         }
-#endif
     }
+#endif
 }
