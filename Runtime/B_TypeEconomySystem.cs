@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using Com.A9.Singleton;
 using UnityEngine;
 using UnityEngine.Events;
+using WeChatWASM;
 
-namespace Com.A9.ToxicSystem
+namespace Com.A9.B_TypeEconomy
 {
-    public enum ToxicType
+    public enum B_TypeItemID
     {
         INTER_0,
         REWARD_0
     }
 
-    public interface IToxic
+    public interface IB_TypeItem
     {
-        public ToxicType GetID();
+        public B_TypeItemID GetID();
         public event Action OnLoadingStart;
         public void LoadAd();
         public event Action OnLoadingComplete;
@@ -28,10 +29,10 @@ namespace Com.A9.ToxicSystem
         public void DestroyAd();
     }
 
-    public class ToxicSystem : Singleton<ToxicSystem>
+    public class B_TypeEconomySystem : Singleton<B_TypeEconomySystem>
     {
         public UnityEvent Initialize;
-        public Dictionary<ToxicType, IToxic> ads = new Dictionary<ToxicType, IToxic>();
+        public Dictionary<B_TypeItemID, IB_TypeItem> ads = new Dictionary<B_TypeItemID, IB_TypeItem>();
         public bool open;
 
         protected override void Awake()
@@ -43,7 +44,7 @@ namespace Com.A9.ToxicSystem
             for (int i = 0; i < transform.childCount; i++)
             {
                 var trans = transform.GetChild(i);
-                var al = trans.GetComponent<IToxic>();
+                var al = trans.GetComponent<IB_TypeItem>();
                 ads.Add(al.GetID(), al);
             }
         }
@@ -54,13 +55,13 @@ namespace Com.A9.ToxicSystem
             Initialize?.Invoke();
         }
 
-        public void LoadAd(ToxicType id)
+        public void LoadAd(B_TypeItemID id)
         {
             if (!open) return;
             ads[id].LoadAd();
         }
 
-        public void ShowAd(ToxicType id)
+        public void ShowAd(B_TypeItemID id)
         {
             if (!open) return;
             if (ads[id].Loaded())
@@ -69,7 +70,7 @@ namespace Com.A9.ToxicSystem
             }
         }
 
-        public void DestroyAd(ToxicType id)
+        public void DestroyAd(B_TypeItemID id)
         {
             if (!open) return;
             ads[id].DestroyAd();

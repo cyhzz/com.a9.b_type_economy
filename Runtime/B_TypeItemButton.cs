@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Com.A9.ToxicSystem
+namespace Com.A9.B_TypeEconomy
 {
-    public class ToxicButton : MonoBehaviour
+    public class B_TypeItemButton : MonoBehaviour
     {
         [SerializeField]
-        ToxicType id;
+        B_TypeItemID id;
         Button button;
         [SerializeField]
         UnityEvent OnLoadingStart;
@@ -25,7 +25,7 @@ namespace Com.A9.ToxicSystem
         void Start()
         {
             button = GetComponent<Button>();
-            var ad = ToxicSystem.instance.ads[id];
+            var ad = B_TypeEconomySystem.instance.ads[id];
             ad.OnLoadingStart += () =>
             {
                 button.interactable = false;
@@ -59,7 +59,7 @@ namespace Com.A9.ToxicSystem
 
         void ShowAd()
         {
-            ToxicSystem.instance.ShowAd(id);
+            B_TypeEconomySystem.instance.ShowAd(id);
         }
     }
 }

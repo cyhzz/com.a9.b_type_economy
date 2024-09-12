@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-namespace Com.A9.ToxicSystem
+namespace Com.A9.B_TypeEconomy
 {
-    public class AdsInter : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IToxic
+    public class AdsInter : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IB_TypeItem
     {
-        public ToxicType id;
+        public B_TypeItemID id;
         [SerializeField] string _androidAdUnitId = "Interstitial_Android";
         [SerializeField] string _iOsAdUnitId = "Interstitial_iOS";
         string _adUnitId;
@@ -80,7 +80,7 @@ namespace Com.A9.ToxicSystem
             return loaded;
         }
 
-        public ToxicType GetID()
+        public B_TypeItemID GetID()
         {
             return id;
         }

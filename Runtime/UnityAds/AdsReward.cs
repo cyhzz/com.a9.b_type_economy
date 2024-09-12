@@ -8,11 +8,11 @@ using UnityEngine.Events;
 using System;
 
 
-namespace Com.A9.ToxicSystem
+namespace Com.A9.B_TypeEconomy
 {
-    public class AdsReward : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IToxic
+    public class AdsReward : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IB_TypeItem
     {
-        public ToxicType id;
+        public B_TypeItemID id;
         [SerializeField] string _androidAdUnitId = "Rewarded_Android";
         [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
         string _adUnitId = null; // This will remain null for unsupported platforms
@@ -89,7 +89,7 @@ namespace Com.A9.ToxicSystem
             return loaded;
         }
 
-        public ToxicType GetID()
+        public B_TypeItemID GetID()
         {
             return id;
         }

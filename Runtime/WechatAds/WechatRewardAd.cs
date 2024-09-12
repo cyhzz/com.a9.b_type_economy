@@ -1,15 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Com.A9.ToxicSystem;
 using UnityEngine;
 using WeChatWASM;
-namespace Com.A9.ToxicSystem
+namespace Com.A9.B_TypeEconomy
 {
 #if UNITY_WEBGL
-    public class WechatRewardAd : MonoBehaviour, IToxic
+    public class WechatRewardAd : MonoBehaviour, IB_TypeItem
     {
-        public ToxicType id;
+        public B_TypeItemID id;
         public string adUnitId;
         public event Action OnLoadingStart;
         public event Action OnLoadingComplete;
@@ -22,7 +21,7 @@ namespace Com.A9.ToxicSystem
             throw new NotImplementedException();
         }
 
-        public ToxicType GetID()
+        public B_TypeItemID GetID()
         {
             return id;
         }
