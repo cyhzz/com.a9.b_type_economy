@@ -21,6 +21,8 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnLoadingStart;
         public event Action OnStartWatch;
         public event Action OnWatchComplete;
+        public event Action OnWatchCompleteDyanmic;
+
         bool loaded;
 
         void Awake()
@@ -62,6 +64,7 @@ namespace Com.A9.B_TypeEconomy
             if (adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
             {
                 OnWatchComplete?.Invoke();
+                OnWatchCompleteDyanmic?.Invoke();
             }
         }
 
@@ -97,6 +100,11 @@ namespace Com.A9.B_TypeEconomy
         public void DestroyAd()
         {
             throw new NotImplementedException();
+        }
+
+        public void SetDynamicOnWatchComplete(Action action)
+        {
+            OnWatchCompleteDyanmic = action;
         }
     }
 }

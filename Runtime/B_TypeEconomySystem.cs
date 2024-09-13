@@ -26,6 +26,9 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnStartWatch;
         public event Action OnWatchComplete;
 
+        public event Action OnWatchCompleteDyanmic;
+        public void SetDynamicOnWatchComplete(Action action);
+
         public void DestroyAd();
     }
 

@@ -14,6 +14,8 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnLoadingComplete;
         public event Action OnStartWatch;
         public event Action OnWatchComplete;
+        public event Action OnWatchCompleteDyanmic;
+
         WXRewardedVideoAd vd;
 
         public void DestroyAd()
@@ -64,12 +66,18 @@ namespace Com.A9.B_TypeEconomy
                 if (c != null && c.isEnded || c == null)
                 {
                     OnWatchComplete?.Invoke();
+                    OnWatchCompleteDyanmic?.Invoke();
                 }
                 else
                 {
 
                 }
             });
+        }
+
+        public void SetDynamicOnWatchComplete(Action action)
+        {
+            OnWatchCompleteDyanmic = action;
         }
     }
 #endif

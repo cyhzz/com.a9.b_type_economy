@@ -14,6 +14,8 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnLoadingComplete;
         public event Action OnStartWatch;
         public event Action OnWatchComplete;
+        public event Action OnWatchCompleteDyanmic;
+
         WXInterstitialAd vd;
 
         public void DestroyAd()
@@ -60,6 +62,17 @@ namespace Com.A9.B_TypeEconomy
             {
                 Debug.LogError(c.errMsg);
             });
+
+            vd.OnClose(() =>
+            {
+                OnWatchComplete?.Invoke();
+                OnWatchCompleteDyanmic?.Invoke();
+            });
+        }
+
+        public void SetDynamicOnWatchComplete(Action action)
+        {
+            OnWatchCompleteDyanmic = action;
         }
     }
 #endif
