@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Com.A9.Singleton;
 using UnityEngine;
 using UnityEngine.Events;
-using WeChatWASM;
 
 namespace Com.A9.B_TypeEconomy
 {
