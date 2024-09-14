@@ -33,6 +33,10 @@ namespace Com.A9.B_TypeEconomy
         // Load content to the Ad Unit:
         public void LoadAd()
         {
+            if (Loaded())
+            {
+                return;
+            }
             Advertisement.Load(_adUnitId, this);
             OnLoadingStart?.Invoke();
         }

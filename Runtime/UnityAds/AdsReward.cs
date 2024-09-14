@@ -39,6 +39,10 @@ namespace Com.A9.B_TypeEconomy
         // Call this public method when you want to get an ad ready to show.
         public void LoadAd()
         {
+            if (Loaded())
+            {
+                return;
+            }
             // IMPORTANT! Only load content AFTER initialization (in this example, initialization is handled in a different script).
             Advertisement.Load(_adUnitId, this);
             OnLoadingStart?.Invoke();

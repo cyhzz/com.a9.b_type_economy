@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_WEBGL
 using WeChatWASM;
 namespace Com.A9.B_TypeEconomy
 {
-#if UNITY_WEBGL
     public class WechatInterAd : MonoBehaviour, IB_TypeItem
     {
         public B_TypeItemID id;
@@ -75,5 +75,5 @@ namespace Com.A9.B_TypeEconomy
             OnWatchCompleteDyanmic = action;
         }
     }
-#endif
 }
+#endif
