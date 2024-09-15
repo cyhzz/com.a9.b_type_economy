@@ -36,6 +36,7 @@ namespace Com.A9.B_TypeEconomy
         public UnityEvent Initialize;
         public Dictionary<B_TypeItemID, IB_TypeItem> ads = new Dictionary<B_TypeItemID, IB_TypeItem>();
         public bool open;
+        Dictionary<B_TypeItemID, float> timer = new Dictionary<B_TypeItemID, float>();
 
         protected override void Awake()
         {
@@ -48,6 +49,50 @@ namespace Com.A9.B_TypeEconomy
                 var trans = transform.GetChild(i);
                 var al = trans.GetComponent<IB_TypeItem>();
                 ads.Add(al.GetID(), al);
+            }
+        }
+
+        void Start()
+        {
+            StartCoroutine(Counting());
+        }
+
+        IEnumerator Counting()
+        {
+            while (true)
+            {
+                foreach (var item in timer)
+                {
+                    if (item.Value > 0)
+                    {
+                        timer[item.Key] += 1.0f;
+                    }
+                }
+                yield return new WaitForSecondsRealtime(1.0f);
+            }
+        }
+
+        public bool TimeGT(B_TypeItemID id, float time)
+        {
+            if (timer.ContainsKey(id))
+            {
+                return timer[id] >= time;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void ResetCounter(B_TypeItemID id)
+        {
+            if (timer.ContainsKey(id))
+            {
+                timer[id] = 0;
+            }
+            else
+            {
+                timer.Add(id, 0);
             }
         }
 
@@ -69,6 +114,7 @@ namespace Com.A9.B_TypeEconomy
             if (ads[id].Loaded())
             {
                 ads[id].ShowAd();
+                ResetCounter(id);
             }
         }
 
