@@ -71,7 +71,7 @@ namespace Com.A9.B_TypeEconomy
                 }
                 else
                 {
-                    OnWatchNoCompleteDyanmic?.Invoke(); 
+                    OnWatchNoCompleteDyanmic?.Invoke();
                 }
             });
         }
@@ -79,6 +79,11 @@ namespace Com.A9.B_TypeEconomy
         public void SetDynamicOnWatchComplete(Action action)
         {
             OnWatchCompleteDyanmic = action;
+        }
+
+        public void SetDynamicOnWatchNoComplete(Action action)
+        {
+            OnWatchNoCompleteDyanmic = action;
         }
     }
 }

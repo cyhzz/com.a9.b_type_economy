@@ -115,5 +115,10 @@ namespace Com.A9.B_TypeEconomy
         {
             OnWatchCompleteDyanmic = action;
         }
+
+        public void SetDynamicOnWatchNoComplete(Action action)
+        {
+            OnWatchNoCompleteDyanmic = action;
+        }
     }
 }
