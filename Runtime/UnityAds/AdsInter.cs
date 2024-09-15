@@ -18,13 +18,14 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnStartWatch;
         public event Action OnWatchComplete;
         public event Action OnWatchCompleteDyanmic;
+        public event Action OnWatchNoCompleteDyanmic;
 
         bool loaded;
 
         void Awake()
         {
 #if UNITY_IOS
-        _adUnitId = _iOsAdUnitId;
+            _adUnitId = _iOsAdUnitId;
 #elif UNITY_ANDROID
         _adUnitId = _androidAdUnitId;
 #endif
@@ -79,6 +80,10 @@ namespace Com.A9.B_TypeEconomy
             {
                 OnWatchComplete?.Invoke();
                 OnWatchCompleteDyanmic?.Invoke();
+            }
+            if (_adUnitId.Equals(_adUnitId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED) == false)
+            {
+                OnWatchNoCompleteDyanmic?.Invoke();
             }
         }
 

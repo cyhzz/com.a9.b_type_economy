@@ -22,10 +22,12 @@ namespace Com.A9.B_TypeEconomy
         public bool Loaded();
 
         public void ShowAd();
+
         public event Action OnStartWatch;
         public event Action OnWatchComplete;
-
         public event Action OnWatchCompleteDyanmic;
+        public event Action OnWatchNoCompleteDyanmic;
+
         public void SetDynamicOnWatchComplete(Action action);
 
         public void DestroyAd();
