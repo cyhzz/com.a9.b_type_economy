@@ -37,16 +37,23 @@ namespace Com.A9.B_TypeEconomy
             }
             OnLoadingStart?.Invoke();
             Debug.Log("Start Load Inter");
-            vd = WX.CreateInterstitialAd(new WXCreateInterstitialAdParam()
+
+            try{
+                vd = WX.CreateInterstitialAd(new WXCreateInterstitialAdParam()
+                {
+                    adUnitId = adUnitId
+                });
+                vd.OnLoad((c) =>
+                {
+                    Debug.Log("Load Inter Complete");
+                    OnLoadingComplete?.Invoke();
+                    loaded = true;
+                });
+            }
+            catch (Exception e)
             {
-                adUnitId = adUnitId
-            });
-            vd.OnLoad((c) =>
-            {
-                Debug.Log("Load Inter Complete");
-                OnLoadingComplete?.Invoke();
-                loaded = true;
-            });
+                Debug.LogError(e);
+            }
         }
 
         public bool Loaded()

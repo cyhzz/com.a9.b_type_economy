@@ -37,16 +37,22 @@ namespace Com.A9.B_TypeEconomy
             }
             OnLoadingStart?.Invoke();
             Debug.Log("Start Load Reward");
-            vd = WX.CreateRewardedVideoAd(new WXCreateRewardedVideoAdParam()
+            try{
+                vd = WX.CreateRewardedVideoAd(new WXCreateRewardedVideoAdParam()
+                {
+                    adUnitId = adUnitId
+                });
+                vd.OnLoad((c) =>
+                {
+                    Debug.Log("Load Reward Complete");
+                    OnLoadingComplete?.Invoke();
+                    loaded = true;
+                });
+            }
+            catch (Exception e)
             {
-                adUnitId = adUnitId
-            });
-            vd.OnLoad((c) =>
-            {
-                Debug.Log("Load Reward Complete");
-                OnLoadingComplete?.Invoke();
-                loaded = true;
-            });
+                Debug.LogError(e);
+            }
         }
 
         public bool Loaded()
