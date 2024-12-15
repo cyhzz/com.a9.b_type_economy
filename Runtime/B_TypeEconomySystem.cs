@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Com.A9.Singleton;
 using UnityEngine;
 using UnityEngine.Events;
@@ -73,13 +74,18 @@ namespace Com.A9.B_TypeEconomy
         {
             while (true)
             {
-                foreach (var item in timer)
+                var keys = timer.Keys.ToList();
+                for (int i = 0; i < keys.Count; i++)
                 {
-                    // if (item.Value > 0)
-                    // {
-                    // }
-                    timer[item.Key] += 1.0f;
+                    timer[keys[i]] += 1.0f;
                 }
+                // foreach (var item in timer)
+                // {
+                //     // if (item.Value > 0)
+                //     // {
+                //     // }
+                //     timer[item.Key] += 1.0f;
+                // }
                 yield return new WaitForSecondsRealtime(1.0f);
             }
         }
