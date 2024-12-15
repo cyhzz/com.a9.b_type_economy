@@ -25,6 +25,7 @@ namespace Com.A9.B_TypeEconomy
 
         public event Action OnStartWatch;
         public event Action OnWatchComplete;
+        public event Action OnWatchClosed;
         public event Action OnWatchCompleteDyanmic;
         public event Action OnWatchNoCompleteDyanmic;
 
@@ -42,6 +43,8 @@ namespace Com.A9.B_TypeEconomy
         public Dictionary<B_TypeItemID, IB_TypeItem> ads = new Dictionary<B_TypeItemID, IB_TypeItem>();
         public bool open;
         Dictionary<B_TypeItemID, float> timer = new Dictionary<B_TypeItemID, float>();
+        [SerializeField]
+        bool debug;
 
         protected override void Awake()
         {
@@ -54,6 +57,10 @@ namespace Com.A9.B_TypeEconomy
                 var trans = transform.GetChild(i);
                 var al = trans.GetComponent<IB_TypeItem>();
                 ads.Add(al.GetID(), al);
+                al.OnWatchClosed += () =>
+                {
+                    ResetCounter(al.GetID());
+                };
             }
         }
 
@@ -85,7 +92,9 @@ namespace Com.A9.B_TypeEconomy
             }
             else
             {
-                return true;
+                timer.Add(id, 0);
+                // return true;
+                return timer[id] >= time;
             }
         }
 
@@ -116,6 +125,14 @@ namespace Com.A9.B_TypeEconomy
         public void ShowAd(B_TypeItemID id)
         {
             if (!open) return;
+            if (!TimeGT(id, ads[id].GetCoolDown()))
+            {
+                if (debug)
+                {
+                    Debug.Log($"Ads Cooldown {timer[id]}");
+                }
+                return;
+            }
             if (ads[id].Loaded())
             {
                 ads[id].ShowAd();

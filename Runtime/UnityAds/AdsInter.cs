@@ -19,6 +19,7 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnWatchComplete;
         public event Action OnWatchCompleteDyanmic;
         public event Action OnWatchNoCompleteDyanmic;
+        public event Action OnWatchClosed;
 
         bool loaded;
 
@@ -88,6 +89,7 @@ namespace Com.A9.B_TypeEconomy
             {
                 OnWatchNoCompleteDyanmic?.Invoke();
             }
+            OnWatchClosed?.Invoke();
         }
 
         public bool Loaded()
