@@ -75,10 +75,10 @@ namespace Com.A9.B_TypeEconomy
             {
                 foreach (var item in timer)
                 {
-                    if (item.Value > 0)
-                    {
-                        timer[item.Key] += 1.0f;
-                    }
+                    // if (item.Value > 0)
+                    // {
+                    // }
+                    timer[item.Key] += 1.0f;
                 }
                 yield return new WaitForSecondsRealtime(1.0f);
             }
