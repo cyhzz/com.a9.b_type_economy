@@ -125,7 +125,6 @@ namespace Com.A9.B_TypeEconomy
         public void LoadAd(B_TypeItemID id)
         {
             if (!open) return;
-            ResetCounter(id);
             ads[id].LoadAd();
         }
 
