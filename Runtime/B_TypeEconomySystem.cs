@@ -32,6 +32,8 @@ namespace Com.A9.B_TypeEconomy
         public void SetDynamicOnWatchNoComplete(Action action);
 
         public void DestroyAd();
+
+        public float GetCoolDown();
     }
 
     public class B_TypeEconomySystem : Singleton<B_TypeEconomySystem>

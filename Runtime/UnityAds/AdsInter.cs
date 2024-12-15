@@ -22,6 +22,9 @@ namespace Com.A9.B_TypeEconomy
 
         bool loaded;
 
+        [SerializeField]
+        float coolDown = 180;
+
         void Awake()
         {
 #if UNITY_IOS
@@ -110,6 +113,11 @@ namespace Com.A9.B_TypeEconomy
         public void SetDynamicOnWatchNoComplete(Action action)
         {
             OnWatchNoCompleteDyanmic = action;
+        }
+
+        public float GetCoolDown()
+        {
+            return coolDown;
         }
     }
 }

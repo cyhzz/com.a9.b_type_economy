@@ -19,6 +19,9 @@ namespace Com.A9.B_TypeEconomy
 
         WXRewardedVideoAd vd;
 
+        [SerializeField]
+        float coolDown = 180;
+
         public void DestroyAd()
         {
             throw new NotImplementedException();
@@ -90,6 +93,11 @@ namespace Com.A9.B_TypeEconomy
         public void SetDynamicOnWatchNoComplete(Action action)
         {
             OnWatchNoCompleteDyanmic = action;
+        }
+
+        public float GetCoolDown()
+        {
+            return coolDown;
         }
     }
 }

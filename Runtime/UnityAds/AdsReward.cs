@@ -23,6 +23,7 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnWatchComplete;
         public event Action OnWatchCompleteDyanmic;
         public event Action OnWatchNoCompleteDyanmic;
+        [SerializeField] float coolDown = 180;
 
         bool loaded;
 
@@ -119,6 +120,11 @@ namespace Com.A9.B_TypeEconomy
         public void SetDynamicOnWatchNoComplete(Action action)
         {
             OnWatchNoCompleteDyanmic = action;
+        }
+
+        public float GetCoolDown()
+        {
+            return coolDown;
         }
     }
 }
