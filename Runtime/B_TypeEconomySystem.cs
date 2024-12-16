@@ -11,7 +11,8 @@ namespace Com.A9.B_TypeEconomy
     public enum B_TypeItemID
     {
         INTER_0,
-        REWARD_0
+        REWARD_0,
+        BANNER_0
     }
 
     public interface IB_TypeItem
