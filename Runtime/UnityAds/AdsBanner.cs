@@ -1,112 +1,124 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using UnityEngine.UI;
-// using UnityEngine.Advertisements;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Advertisements;
+using Com.A9.B_TypeEconomy;
+using System;
 
-// public class AdsBanner : MonoBehaviour
-// {
-//     // For the purpose of this example, these buttons are for functionality testing:
-//     [SerializeField] Button _loadBannerButton;
-//     [SerializeField] Button _showBannerButton;
-//     [SerializeField] Button _hideBannerButton;
+public class AdsBanner : MonoBehaviour, IB_TypeItem
+{
+    public B_TypeItemID id;
 
-//     [SerializeField] BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
+    [SerializeField] BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
 
-//     [SerializeField] string _androidAdUnitId = "Banner_Android";
-//     [SerializeField] string _iOSAdUnitId = "Banner_iOS";
-//     string _adUnitId = null; // This will remain null for unsupported platforms.
+    [SerializeField] string _androidAdUnitId = "Banner_Android";
+    [SerializeField] string _iOSAdUnitId = "Banner_iOS";
+    string _adUnitId = null; // This will remain null for unsupported platforms.
 
-//     void Start()
-//     {
-//         // Get the Ad Unit ID for the current platform:
-// #if UNITY_IOS
-//         _adUnitId = _iOSAdUnitId;
-// #elif UNITY_ANDROID
-//         _adUnitId = _androidAdUnitId;
-// #endif
+    public event Action OnLoadingStart;
+    public event Action OnLoadingComplete;
+    public event Action OnStartWatch;
+    public event Action OnWatchComplete;
+    public event Action OnWatchClosed;
+    public event Action OnWatchCompleteDyanmic;
+    public event Action OnWatchNoCompleteDyanmic;
 
-//         // Disable the button until an ad is ready to show:
-//         _showBannerButton.interactable = false;
-//         _hideBannerButton.interactable = false;
+    void Start()
+    {
+        // Get the Ad Unit ID for the current platform:
+#if UNITY_IOS
+        _adUnitId = _iOSAdUnitId;
+#elif UNITY_ANDROID
+        _adUnitId = _androidAdUnitId;
+#endif
+        Advertisement.Banner.SetPosition(_bannerPosition);
+    }
 
-//         // Set the banner position:
-//         Advertisement.Banner.SetPosition(_bannerPosition);
+    void OnBannerLoaded()
+    {
+        ShowBannerAd();
+    }
 
-//         // Configure the Load Banner button to call the LoadBanner() method when clicked:
-//         _loadBannerButton.onClick.AddListener(LoadBanner);
-//         _loadBannerButton.interactable = true;
-//     }
+    void OnBannerError(string message)
+    {
+        Debug.Log($"Banner Error: {message}");
+    }
 
-//     // Implement a method to call when the Load Banner button is clicked:
-//     public void LoadBanner()
-//     {
-//         // Set up options to notify the SDK of load events:
-//         BannerLoadOptions options = new BannerLoadOptions
-//         {
-//             loadCallback = OnBannerLoaded,
-//             errorCallback = OnBannerError
-//         };
+    void ShowBannerAd()
+    {
+        // Set up options to notify the SDK of show events:
+        BannerOptions options = new BannerOptions
+        {
+            clickCallback = OnBannerClicked,
+            hideCallback = OnBannerHidden,
+            showCallback = OnBannerShown
+        };
 
-//         // Load the Ad Unit with banner content:
-//         Advertisement.Banner.Load(_adUnitId, options);
-//     }
+        Advertisement.Banner.Show(_adUnitId, options);
+    }
 
-//     // Implement code to execute when the loadCallback event triggers:
-//     void OnBannerLoaded()
-//     {
-//         Debug.Log("Banner loaded");
+    // Implement a method to call when the Hide Banner button is clicked:
+    void HideBannerAd()
+    {
+        Advertisement.Banner.Hide();
+    }
 
-//         // Configure the Show Banner button to call the ShowBannerAd() method when clicked:
-//         _showBannerButton.onClick.AddListener(ShowBannerAd);
-//         // Configure the Hide Banner button to call the HideBannerAd() method when clicked:
-//         _hideBannerButton.onClick.AddListener(HideBannerAd);
+    void OnBannerClicked() { }
+    void OnBannerShown() { }
+    void OnBannerHidden() { }
 
-//         // Enable both buttons:
-//         _showBannerButton.interactable = true;
-//         _hideBannerButton.interactable = true;
+    bool loaded;
+    public B_TypeItemID GetID()
+    {
+        return id;
+    }
 
-//         ShowBannerAd();
-//     }
+    public void LoadAd()
+    {
+        if (Loaded())
+        {
+            return;
+        }
 
-//     // Implement code to execute when the load errorCallback event triggers:
-//     void OnBannerError(string message)
-//     {
-//         Debug.Log($"Banner Error: {message}");
-//         // Optionally execute additional code, such as attempting to load another ad.
-//     }
+        BannerLoadOptions options = new BannerLoadOptions
+        {
+            loadCallback = OnBannerLoaded,
+            errorCallback = OnBannerError
+        };
 
-//     // Implement a method to call when the Show Banner button is clicked:
-//     void ShowBannerAd()
-//     {
-//         // Set up options to notify the SDK of show events:
-//         BannerOptions options = new BannerOptions
-//         {
-//             clickCallback = OnBannerClicked,
-//             hideCallback = OnBannerHidden,
-//             showCallback = OnBannerShown
-//         };
+        Advertisement.Banner.Load(_adUnitId, options);
+        OnLoadingStart?.Invoke();
+    }
 
-//         // Show the loaded Banner Ad Unit:
-//         Advertisement.Banner.Show(_adUnitId, options);
-//     }
+    public bool Loaded()
+    {
+        return loaded;
+    }
 
-//     // Implement a method to call when the Hide Banner button is clicked:
-//     void HideBannerAd()
-//     {
-//         // Hide the banner:
-//         Advertisement.Banner.Hide();
-//     }
+    public void ShowAd()
+    {
+        ShowBannerAd();
+    }
 
-//     void OnBannerClicked() { }
-//     void OnBannerShown() { }
-//     void OnBannerHidden() { }
+    public void SetDynamicOnWatchComplete(Action action)
+    {
+    }
 
-//     void OnDestroy()
-//     {
-//         // Clean up the listeners:
-//         _loadBannerButton.onClick.RemoveAllListeners();
-//         _showBannerButton.onClick.RemoveAllListeners();
-//         _hideBannerButton.onClick.RemoveAllListeners();
-//     }
-// }
+    public void SetDynamicOnWatchNoComplete(Action action)
+    {
+    }
+
+    public void DestroyAd()
+    {
+        HideBannerAd();
+    }
+
+    [SerializeField]
+    float coolDown = 180;
+
+    public float GetCoolDown()
+    {
+        return coolDown;
+    }
+}
