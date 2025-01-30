@@ -30,9 +30,11 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnWatchClosed;
         public event Action OnWatchCompleteDyanmic;
         public event Action OnWatchNoCompleteDyanmic;
+        public event Action OnStartWatchDyanmic;
 
         public void SetDynamicOnWatchComplete(Action action);
         public void SetDynamicOnWatchNoComplete(Action action);
+        public void SetStartWatchDynamic(Action action);
 
         public void DestroyAd();
 

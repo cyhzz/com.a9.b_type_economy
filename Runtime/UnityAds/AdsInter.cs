@@ -19,6 +19,7 @@ namespace Com.A9.B_TypeEconomy
         public event Action OnWatchComplete;
         public event Action OnWatchCompleteDyanmic;
         public event Action OnWatchNoCompleteDyanmic;
+        public event Action OnStartWatchDyanmic;
         public event Action OnWatchClosed;
 
         bool loaded;
@@ -76,6 +77,7 @@ namespace Com.A9.B_TypeEconomy
         public void OnUnityAdsShowStart(string _adUnitId)
         {
             OnStartWatch?.Invoke();
+            OnStartWatchDyanmic?.Invoke();
         }
         public void OnUnityAdsShowClick(string _adUnitId) { }
         public void OnUnityAdsShowComplete(string _adUnitId, UnityAdsShowCompletionState showCompletionState)
@@ -115,6 +117,11 @@ namespace Com.A9.B_TypeEconomy
         public void SetDynamicOnWatchNoComplete(Action action)
         {
             OnWatchNoCompleteDyanmic = action;
+        }
+
+        public void SetStartWatchDynamic(Action action)
+        {
+            OnStartWatchDyanmic = action;
         }
 
         public float GetCoolDown()

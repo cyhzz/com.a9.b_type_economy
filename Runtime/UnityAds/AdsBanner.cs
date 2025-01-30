@@ -23,6 +23,7 @@ public class AdsBanner : MonoBehaviour, IB_TypeItem
     public event Action OnWatchClosed;
     public event Action OnWatchCompleteDyanmic;
     public event Action OnWatchNoCompleteDyanmic;
+    public event Action OnStartWatchDyanmic;
 
     void Start()
     {
@@ -106,6 +107,10 @@ public class AdsBanner : MonoBehaviour, IB_TypeItem
     }
 
     public void SetDynamicOnWatchNoComplete(Action action)
+    {
+    }
+
+    public void SetStartWatchDynamic(Action action)
     {
     }
 
