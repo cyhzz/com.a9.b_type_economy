@@ -47,6 +47,8 @@ namespace Com.A9.B_TypeEconomy
         public Dictionary<B_TypeItemID, IB_TypeItem> ads = new Dictionary<B_TypeItemID, IB_TypeItem>();
         public bool open;
         Dictionary<B_TypeItemID, float> timer = new Dictionary<B_TypeItemID, float>();
+        public Dictionary<B_TypeItemID, bool> ads_removal = new Dictionary<B_TypeItemID, bool>();
+
         [SerializeField]
         bool debug;
 
@@ -128,12 +130,20 @@ namespace Com.A9.B_TypeEconomy
         public void LoadAd(B_TypeItemID id)
         {
             if (!open) return;
+            if (ads_removal.ContainsKey(id) == false || ads_removal[id] == true)
+            {
+                return;
+            }
             ads[id].LoadAd();
         }
 
         public void ShowAd(B_TypeItemID id)
         {
             if (!open) return;
+            if (ads_removal.ContainsKey(id) == false || ads_removal[id] == true)
+            {
+                return;
+            }
             if (!TimeGT(id, ads[id].GetCoolDown()))
             {
                 if (debug)
