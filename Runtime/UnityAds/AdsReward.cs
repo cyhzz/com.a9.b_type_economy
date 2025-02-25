@@ -97,6 +97,7 @@ namespace Com.A9.B_TypeEconomy
         public void OnUnityAdsShowStart(string adUnitId)
         {
             OnStartWatch?.Invoke();
+            OnStartWatchDyanmic?.Invoke();
         }
         public void OnUnityAdsShowClick(string adUnitId) { }
 
