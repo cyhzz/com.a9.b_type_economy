@@ -130,7 +130,7 @@ namespace Com.A9.B_TypeEconomy
         public void LoadAd(B_TypeItemID id)
         {
             if (!open) return;
-            if (ads_removal.ContainsKey(id) == false || ads_removal[id] == true)
+            if (ads_removal.ContainsKey(id) == true && ads_removal[id] == true)
             {
                 return;
             }
@@ -140,7 +140,7 @@ namespace Com.A9.B_TypeEconomy
         public void ShowAd(B_TypeItemID id)
         {
             if (!open) return;
-            if (ads_removal.ContainsKey(id) == false || ads_removal[id] == true)
+            if (ads_removal.ContainsKey(id) == true && ads_removal[id] == true)
             {
                 return;
             }
