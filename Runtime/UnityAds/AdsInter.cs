@@ -41,8 +41,10 @@ namespace Com.A9.B_TypeEconomy
         {
             if (Loaded())
             {
+                Debug.Log("Ad is already loaded");
                 return;
             }
+            Debug.Log("Loading Ad: " + _adUnitId);
             Advertisement.Load(_adUnitId, this);
             OnLoadingStart?.Invoke();
         }
@@ -60,6 +62,7 @@ namespace Com.A9.B_TypeEconomy
             // Optionally execute code if the Ad Unit successfully loads content.
             OnLoadingComplete?.Invoke();
             loaded = true;
+            Debug.Log("Ad Loaded: " + adUnitId);
         }
 
         public void OnUnityAdsFailedToLoad(string _adUnitId, UnityAdsLoadError error, string message)
