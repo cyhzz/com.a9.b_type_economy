@@ -132,6 +132,7 @@ namespace Com.A9.B_TypeEconomy
             if (!open) return;
             if (ads_removal.ContainsKey(id) == true && ads_removal[id] == true)
             {
+                Debug.Log("Ad Removed");
                 return;
             }
             ads[id].LoadAd();
@@ -142,6 +143,7 @@ namespace Com.A9.B_TypeEconomy
             if (!open) return;
             if (ads_removal.ContainsKey(id) == true && ads_removal[id] == true)
             {
+                Debug.Log("Ad Removed");
                 return;
             }
             if (!TimeGT(id, ads[id].GetCoolDown()))
