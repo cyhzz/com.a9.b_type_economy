@@ -77,6 +77,16 @@ namespace Com.A9.B_TypeEconomy
         void ShowMockAd()
         {
             B_TypeEconomySystem.instance.ShowMockAd(id);
+            button.interactable = false;
+            OnStartWatch?.Invoke();
+            OnDisabled?.Invoke();
+        }
+
+        public void MockLoaded()
+        {
+            button.interactable = true;
+            OnLoadingComplete?.Invoke();
+            OnInteractive?.Invoke();
         }
     }
 }
