@@ -10,6 +10,7 @@ namespace Com.A9.B_TypeEconomy
     {
         [SerializeField]
         B_TypeItemID id;
+        [SerializeField]
         Button button;
         [SerializeField]
         UnityEvent OnLoadingStart;
