@@ -26,18 +26,29 @@ namespace Com.A9.B_TypeEconomy
         {
             button = GetComponent<Button>();
             var ad = B_TypeEconomySystem.instance.ads[id];
+
+            if (B_TypeEconomySystem.instance.test_mode)
+            {
+                button.onClick.AddListener(ShowMockAd);
+                OnInteractive?.Invoke();
+                button.interactable = true;
+                return;
+            }
+
             ad.OnLoadingStart += () =>
             {
                 button.interactable = false;
                 OnLoadingStart?.Invoke();
                 OnDisabled?.Invoke();
             };
+
             ad.OnLoadingComplete += () =>
             {
                 button.interactable = true;
                 OnLoadingComplete?.Invoke();
                 OnInteractive?.Invoke();
             };
+
             ad.OnStartWatch += () =>
             {
                 button.interactable = false;
@@ -47,6 +58,7 @@ namespace Com.A9.B_TypeEconomy
 
             button.onClick.AddListener(ShowAd);
             button.interactable = ad.Loaded();
+
             if (button.interactable)
             {
                 OnInteractive?.Invoke();
@@ -60,6 +72,11 @@ namespace Com.A9.B_TypeEconomy
         void ShowAd()
         {
             B_TypeEconomySystem.instance.ShowAd(id);
+        }
+
+        void ShowMockAd()
+        {
+            B_TypeEconomySystem.instance.ShowMockAd(id);
         }
     }
 }

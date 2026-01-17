@@ -52,6 +52,12 @@ namespace Com.A9.B_TypeEconomy
         [SerializeField]
         bool debug;
 
+        public bool test_mode;
+        public Action<B_TypeItemID> OnTestShow;
+        public Action<B_TypeItemID> OnTestDestroy;
+        public Action<B_TypeItemID> OnTestComplete;
+        public Action<B_TypeItemID> OnTestClose;
+
         protected override void Awake()
         {
             base.Awake();
@@ -130,12 +136,21 @@ namespace Com.A9.B_TypeEconomy
         public void LoadAd(B_TypeItemID id)
         {
             if (!open) return;
+            if (test_mode)
+            {
+                return;
+            }
             if (ads_removal.ContainsKey(id) == true && ads_removal[id] == true)
             {
                 Debug.Log("Ad Removed");
                 return;
             }
             ads[id].LoadAd();
+        }
+
+        public void ShowMockAd(B_TypeItemID id)
+        {
+            OnTestShow?.Invoke(id);
         }
 
         public void ShowAd(B_TypeItemID id)
@@ -154,6 +169,7 @@ namespace Com.A9.B_TypeEconomy
                 }
                 return;
             }
+
             if (ads[id].Loaded())
             {
                 ads[id].ShowAd();
@@ -164,6 +180,11 @@ namespace Com.A9.B_TypeEconomy
         public void DestroyAd(B_TypeItemID id)
         {
             if (!open) return;
+            if (test_mode)
+            {
+                OnTestDestroy?.Invoke(id);
+                return;
+            }
             ads[id].DestroyAd();
         }
     }
